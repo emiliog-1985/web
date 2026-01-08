@@ -1,0 +1,49 @@
+---
+import CescofCard from "./CescofCard.astro";
+import { cecosfs } from "../data/cecosfs";
+---
+
+<section id="cecosf" class="section-cecosf">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Nuestros CECOSF</h2>
+            <p class="section-subtitle">
+                Centros Comunitarios de Salud Familiar
+            </p>
+        </div>
+
+        <div class="cecosf-grid">
+            {cecosfs.map((cecosf) => <CescofCard {...cecosf} />)}
+        </div>
+    </div>
+</section>
+
+<style>
+    .section-cecosf {
+        padding: 4rem 0;
+        background-color: white; /* Alternating background color */
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        color: var(--color-primary);
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+        color: var(--color-text-light);
+        font-size: 1.125rem;
+    }
+
+    .cecosf-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+</style>

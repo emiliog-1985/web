@@ -1,0 +1,119 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ImageModal from "../../components/ImageModal.astro";
+import { cesfams } from "../../data/cesfams";
+import { Image } from "astro:assets";
+import "../../styles/global.css";
+
+export async function getStaticPaths() {
+    return cesfams.map((cesfam) => ({
+        params: { id: cesfam.id },
+        props: { cesfam },
+    }));
+}
+
+const { cesfam } = Astro.props;
+---
+
+<Layout title={`${cesfam.name} - Atención Primaria Arica`}>
+    <Header />
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title">{cesfam.name}</h1>
+                <div class="breadcrumb">
+                    <a href="/">Inicio</a> / <a href="/cesfam">CESFAM</a> / <span
+                        >{cesfam.name}</span
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="container cesfam-detail">
+            <div class="main-info">
+                <div
+                    class="image-container"
+                    onclick={`window.openImageModal("${cesfam.image.src}", "Centro ${cesfam.name}")`}
+                    style="cursor: pointer;"
+                    title="Ver imagen completa"
+                >
+                    <Image
+                        src={cesfam.image}
+                        alt={`Centro ${cesfam.name}`}
+                        class="center-image"
+                    />
+                    <div class="zoom-hint">🔍 Clic para ampliar</div>
+                </div>
+                <div class="info-content">
+                    <h2>Información de Contacto</h2>
+                    <ul class="info-list">
+                        <li>
+                            <span class="label">Dirección:</span>
+                            <span class="value">{cesfam.address}</span>
+                        </li>
+                        <li>
+                            <span class="label">Teléfono:</span>
+                            <span class="value">{cesfam.phone}</span>
+                        </li>
+                        <li class="director-item">
+                            <span class="label">Director(a):</span>
+                            <div class="director-info">
+                                <span class="value">{cesfam.director}</span>
+                                <button
+                                    class="btn-view-photo"
+                                    onclick={`window.openImageModal("${cesfam.directorImage.src}", "Director(a) ${cesfam.name}")`}
+                                >
+                                    📷 Ver Foto
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="label">Horario:</span>
+                            <span class="value">{cesfam.hours}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="map-section">
+                <h2>Ubicación</h2>
+                <div class="map-container">
+                    <iframe
+                        src={cesfam.mapUrl}
+                        width="100%"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            {
+                cesfam.photos && cesfam.photos.length > 0 && (
+                    <div class="gallery-section">
+                        <h2>Galería de Imágenes</h2>
+                        <div class="gallery-grid">
+                            {cesfam.photos.map((photo) => (
+                                <div
+                                    class="gallery-item"
+                                    onclick={`window.openImageModal("${photo}", "Galería ${cesfam.name}")`}
+                                >
+                                    <img
+                                        src={photo}
+                                        alt={`Foto ${cesfam.name}`}
+                                        loading="lazy"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    </main>
+    <ImageModal />
+    <Footer />
+</Layout>

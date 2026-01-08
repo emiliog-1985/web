@@ -1,0 +1,61 @@
+---
+import PostaCard from "./PostaCard.astro";
+import { postas } from "../data/postas";
+---
+
+<section class="section-postas" id="postas">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Postas de Salud Rural</h2>
+            <p class="section-subtitle">Atención primaria en zonas rurales</p>
+        </div>
+
+        <div class="postas-grid">
+            {
+                postas.map((posta) => (
+                    <PostaCard
+                        id={posta.id}
+                        name={posta.name}
+                        address={posta.address}
+                        phone={posta.phone}
+                        hours={posta.hours}
+                        manager={posta.manager}
+                        managerTitle={posta.managerTitle}
+                        image={posta.image}
+                        mapUrl={posta.mapUrl}
+                    />
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .section-postas {
+        padding: 4rem 0;
+        background-color: var(--color-bg);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        color: var(--color-primary);
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+        color: var(--color-text-light);
+        font-size: 1.125rem;
+    }
+
+    .postas-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+</style>

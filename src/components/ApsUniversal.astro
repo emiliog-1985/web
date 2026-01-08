@@ -1,0 +1,248 @@
+---
+import { Image } from "astro:assets";
+import pinAps from "../assets/pin_aps_universal.png";
+---
+
+<section class="aps-universal section" id="aps-universal">
+    <div class="container">
+        <!-- Intro Section with New Branding -->
+        <div class="aps-intro-card">
+            <div class="aps-intro-content">
+                <span class="badge-pionera">¡Arica Comuna Pionera!</span>
+                <h3>Atención Primaria Universal</h3>
+                <p>
+                    Arica es parte de la transformación histórica de la salud en
+                    Chile. Ahora, la <strong
+                        >Atención Primaria de Salud (APS)</strong
+                    > es para
+                    <strong>todos y todas</strong>, sin importar tu previsión.
+                </p>
+                <div class="aps-features">
+                    <div class="feature-item">
+                        <span class="check-icon">✓</span>
+                        <span>FONASA</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check-icon">✓</span>
+                        <span>ISAPRE</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check-icon">✓</span>
+                        <span>DIPRECA / CAPREDENA</span>
+                    </div>
+                    <div class="feature-item highlight">
+                        <span class="check-icon">★</span>
+                        <span><strong>Copago $0</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="aps-intro-decoration">
+                <Image
+                    src={pinAps}
+                    alt="Logo APS Universal"
+                    class="aps-logo-floating"
+                    width={300}
+                />
+            </div>
+        </div>
+
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Nuestra Estrategia</h2>
+            <p class="section-subtitle">
+                Una salud pública universal, gratuita y de calidad cerca de ti
+            </p>
+        </div>
+
+        <div class="aps-grid mb-5">
+            <!-- Card 1: Cobertura Universal -->
+            <div class="aps-card blue-card">
+                <div class="card-icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="40"
+                        height="40"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                        ></path><circle cx="9" cy="7" r="4"></circle><path
+                            d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path
+                            d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg
+                    >
+                </div>
+                <h3>Acceso Universal Efectivo</h3>
+                <p class="card-intro">
+                    Eliminamos las barreras de acceso. Si vives, trabajas o
+                    estudias en Arica, eres bienvenido.
+                </p>
+                <ul>
+                    <li>
+                        <strong>Sin Preexistencias:</strong> Tu historial médico no
+                        limita tu atención.
+                    </li>
+                    <li>
+                        <strong>Inscripción Abierta:</strong> Inscríbete en el CESFAM
+                        más cercano presentando tu Cédula de Identidad y un comprobante
+                        de domicilio.
+                    </li>
+                    <li>
+                        <strong>Gratuidad Total:</strong> Todas las prestaciones son
+                        costo cero para el usuario.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Calidad e Innovación -->
+            <div class="aps-card orange-card">
+                <div class="card-icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="40"
+                        height="40"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><path
+                            d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"
+                        ></path><path d="M8.5 8.5v.01"></path><path
+                            d="M16 12v.01"></path><path d="M12 16v.01"
+                        ></path></svg
+                    >
+                </div>
+                <h3>Habilitadores Digitales y Calidad</h3>
+                <p class="card-intro">
+                    Tecnología y gestión moderna al servicio de las personas.
+                </p>
+                <ul>
+                    <li>
+                        <strong>Telesalud:</strong> Gestión remota de la demanda para
+                        agendar horas sin filas.
+                    </li>
+                    <li>
+                        <strong>Atención Extramuro:</strong> Operativos de salud en
+                        terreno, sedes vecinales y colegios.
+                    </li>
+                    <li>
+                        <strong>Estrategia ECICEP:</strong> Cuidado integral centrado
+                        en las personas con enfermedades crónicas.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Info Registration Block -->
+        <div class="aps-card full-width-card">
+            <div class="card-content-fl">
+                <div class="fl-text">
+                    <h3>¿Cómo me inscribo?</h3>
+                    <p>
+                        Acércate a la oficina OIRS de tu CESFAM o Posta Rural
+                        más cercana. Solo necesitas tu <strong
+                            >Cédula de Identidad</strong
+                        > y un documento que acredite tu dirección (cuenta de luz,
+                        agua, o contrato). ¡Es rápido, fácil y gratuito!
+                    </p>
+                </div>
+                <div class="fl-icon">
+                    <span style="font-size: 3.5rem;">📝</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .badge-pionera {
+        display: inline-block;
+        background-color: var(--color-accent);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        letter-spacing: 0.05em;
+        box-shadow: 0 4px 6px rgba(245, 158, 11, 0.4);
+    }
+
+    .aps-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .feature-item {
+        background-color: #f0f9ff;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+        color: #0369a1;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .feature-item.highlight {
+        background-color: #ecfdf5;
+        color: #047857;
+        border: 1px solid #10b981;
+    }
+
+    .check-icon {
+        font-weight: 900;
+    }
+
+    .aps-logo-floating {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+        animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+
+    .card-intro {
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        color: #4b5563;
+        font-style: italic;
+    }
+
+    .full-width-card {
+        background: linear-gradient(to right, #ffffff, #eff6ff);
+        border-left: 5px solid var(--color-primary);
+        margin-top: 3rem;
+    }
+    .card-content-fl {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+    @media (max-width: 768px) {
+        .card-content-fl {
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+        .aps-features {
+            justify-content: center;
+        }
+    }
+</style>

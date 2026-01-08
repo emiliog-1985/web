@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import global from "../styles/global.css";
+
+interface Props {
+    id: string;
+    name: string;
+    address: string;
+    phone: string;
+    hours: string;
+    director: string;
+    image: ImageMetadata;
+}
+
+const { id, name, address, phone, hours, director, image } = Astro.props;
+---
+
+<article class="cesfam-card">
+    <div class="card-image">
+        <Image src={image} alt={`Centro ${name}`} width={800} height={600} />
+    </div>
+    <div class="card-content">
+        <h3 class="card-title">{name}</h3>
+        <div class="card-info">
+            <div class="info-item">
+                <span class="info-label">Dirección:</span>
+                <span class="info-text">{address}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Teléfono:</span>
+                <a
+                    href={`tel:${phone.replace(/\s/g, "").replace(/-/g, "")}`}
+                    class="info-link">{phone}</a
+                >
+            </div>
+            <div class="info-item">
+                <span class="info-label">Director(a):</span>
+                <span class="info-text">{director}</span>
+            </div>
+            <div class="info-item full-width">
+                <span class="info-label">Horario:</span>
+                <span class="info-text">{hours}</span>
+            </div>
+        </div>
+        <div class="card-actions">
+            <a href={`/cesfam/${id}`} class="btn-card">Más Información</a>
+        </div>
+    </div>
+</article>

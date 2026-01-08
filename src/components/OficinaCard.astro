@@ -1,0 +1,115 @@
+---
+interface Props {
+    name: string;
+    head: string;
+    contact: {
+        email?: string;
+        phone: string;
+        address: string;
+    };
+    description: string;
+    image: string;
+}
+
+const { name, head, contact, description, image } = Astro.props;
+---
+
+<div class="oficina-card">
+    <div class="oficina-image">
+        <img src={image} alt={name} />
+    </div>
+    <div class="oficina-content">
+        <h3>{name}</h3>
+        <p class="head"><strong>Encargado/a:</strong> {head}</p>
+        <p class="description">{description}</p>
+        <div class="contact-info">
+            <p>📍 {contact.address}</p>
+            <p>📞 {contact.phone}</p>
+            {contact.email && <p>✉️ {contact.email}</p>}
+        </div>
+    </div>
+</div>
+
+<style>
+    .oficina-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+            0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: 1px solid #e5e7eb;
+    }
+
+    .oficina-card:hover {
+        transform: translateY(-5px);
+        box-shadow:
+            0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .oficina-image {
+        height: 200px;
+        background: linear-gradient(135deg, #0056b3 0%, #00a0d2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .oficina-image img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        filter: brightness(0) invert(1); /* Make logo white */
+    }
+
+    .oficina-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    h3 {
+        color: #1a202c;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        line-height: 1.4;
+    }
+
+    .head {
+        color: #0056b3;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .description {
+        color: #4a5568;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+
+    .contact-info {
+        padding-top: 1rem;
+        border-top: 1px solid #e2e8f0;
+        font-size: 0.9rem;
+        color: #718096;
+    }
+
+    .contact-info p {
+        margin: 0.25rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+</style>

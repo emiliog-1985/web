@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CescofList from "../components/CescofList.astro";
+---
+
+<Layout title="Nuestros CECOSF - Atención Primaria Arica">
+    <Header />
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title">
+                    Centros Comunitarios de Salud Familiar
+                </h1>
+                <div class="breadcrumb">
+                    <a href="/">Inicio</a> / <span>CECOSF</span>
+                </div>
+            </div>
+        </div>
+        <CescofList />
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .page-header {
+        background-color: var(--color-bg-alt);
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        color: var(--color-primary);
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .breadcrumb {
+        color: var(--color-text-light);
+        font-size: 0.9rem;
+    }
+
+    .breadcrumb a {
+        color: var(--color-text);
+        text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+        color: var(--color-primary);
+        text-decoration: underline;
+    }
+
+    .breadcrumb span {
+        color: var(--color-secondary);
+        font-weight: 600;
+    }
+</style>

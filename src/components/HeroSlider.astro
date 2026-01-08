@@ -1,0 +1,158 @@
+---
+import { Image } from "astro:assets";
+import sliderSapu from "../assets/slider-sapu.png";
+import sliderHistoriaClinica from "../assets/slider-historia-clinica.png";
+import sliderAntibioticos from "../assets/slider-antibioticos.png";
+import sliderSapu2 from "../assets/slider-sapu2.png";
+import sliderSar from "../assets/slider-sar.png";
+import global from "../styles/global.css";
+import flecha from "../assets/flecha.png";
+
+const slides = [
+    {
+        image: sliderHistoriaClinica,
+        title: "Ingresa",
+        subtitle: "",
+        cta: "Aquí ➜",
+        link: "https://mihc.avislatam.com/tecmedica/th_online/login.cfm",
+    },
+    {
+        image: sliderAntibioticos,
+        title: "Ingresa",
+        subtitle: "",
+        cta: "Aquí ➜",
+        link: "https://www.minsal.cl/plan-nacional-contra-la-resistencia-a-los-antimicrobianos/",
+    },
+    {
+        image: sliderSapu,
+        title: "",
+        subtitle: "",
+        cta: "",
+        link: "",
+    },
+    {
+        image: sliderSapu2,
+        title: "",
+        subtitle: "",
+        cta: "",
+        link: "",
+    },
+    {
+        image: sliderSar,
+        title: "",
+        subtitle: "",
+        cta: "",
+        link: "",
+    },
+];
+---
+
+<section class="hero-slider" aria-label="Galería de imágenes principales">
+    <div class="slider-container">
+        {
+            slides.map((slide, index) => (
+                <div
+                    class={`slide ${index === 0 ? "active" : ""}`}
+                    data-index={index}
+                >
+                    <div class="slide-image">
+                        <Image
+                            src={slide.image}
+                            alt={`Slide ${index + 1}`}
+                            quality="high"
+                            class="img-cover"
+                        />
+                    </div>
+                    {slide.title && (
+                        <div class="slide-content container">
+                            <div class="content-box">
+                                <h2 class="slide-title">{slide.title}</h2>
+                                <p class="slide-subtitle">{slide.subtitle}</p>
+                                {slide.cta && (
+                                    <a
+                                        href={slide.link}
+                                        class="btn btn-primary"
+                                    >
+                                        {slide.cta}
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ))
+        }
+    </div>
+
+    <div class="slider-controls">
+        <button class="prev-btn" aria-label="Anterior"> </button>
+        <button class="next-btn" aria-label="Siguiente"> </button>
+    </div>
+
+    <div class="slider-dots">
+        {
+            slides.map((_, index) => (
+                <button
+                    class={`dot ${index === 0 ? "active" : ""}`}
+                    data-index={index}
+                    aria-label={`Ir a diapositiva ${index + 1}`}
+                />
+            ))
+        }
+    </div>
+</section>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".dot");
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    let interval: ReturnType<typeof setInterval>;
+
+    function showSlide(index: number) {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        dots.forEach((dot) => dot.classList.remove("active"));
+
+        // Handle wrapping
+        if (index >= slides.length) currentSlide = 0;
+        else if (index < 0) currentSlide = slides.length - 1;
+        else currentSlide = index;
+
+        slides[currentSlide].classList.add("active");
+        dots[currentSlide].classList.add("active");
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    function startAutoPlay() {
+        if (interval) clearInterval(interval);
+        interval = setInterval(nextSlide, 5000);
+    }
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener("click", () => {
+            prevSlide();
+            startAutoPlay();
+        });
+        nextBtn.addEventListener("click", () => {
+            nextSlide();
+            startAutoPlay();
+        });
+
+        dots.forEach((dot, idx) => {
+            dot.addEventListener("click", () => {
+                showSlide(idx);
+                startAutoPlay();
+            });
+        });
+
+        startAutoPlay();
+    }
+</script>

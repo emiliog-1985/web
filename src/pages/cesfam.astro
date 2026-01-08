@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CesfamList from "../components/CesfamList.astro";
+import global from "../styles/global.css";
+---
+
+<Layout title="Nuestros CESFAM - Atención Primaria Arica">
+    <Header />
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title">Centros de Salud Familiar</h1>
+                <div class="breadcrumb">
+                    <a href="/">Inicio</a> / <span>CESFAM</span>
+                </div>
+            </div>
+        </div>
+        <CesfamList />
+    </main>
+    <Footer />
+</Layout>

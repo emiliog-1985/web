@@ -1,0 +1,310 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import HeroSlider from "../components/HeroSlider.astro";
+import rvz from "../assets/cesfam/rvz.jpeg";
+import farmaciaImg from "../assets/farmacia_card.webp";
+import sapuImg from "../assets/cesfam/sapu_marco_carvajal.jpg";
+import ImageModal from "../components/ImageModal.astro";
+import misionImg from "../assets/mision_vision_valores.jpg";
+import aricaLogo from "../assets/arica.svg";
+import telesaludImg from "../assets/telesalud_card.jpg";
+import misionVisionImg from "../assets/mision_vision.jpg";
+import papImg from "../assets/pap_movil.jpg";
+import colores from "../assets/colores.svg";
+
+import papModalImg from "../assets/papmovil.png";
+
+// Cartas de servicio
+const services = [
+	{
+		title: "Centros de Salud Familiar",
+		desc: "Ubica tu CESFAM en la ciudad.",
+		image: rvz,
+		link: "/cesfam/",
+	},
+	{
+		title: "Farmacia Municipal",
+		desc: "Consulta disponibilidad y precios de medicamentos.",
+		image: farmaciaImg,
+		link: "/farmacia",
+	},
+	{
+		title: "Urgencias (SAPU/SAR)",
+		desc: "Información sobre SAPU y SAR.",
+		image: sapuImg,
+		link: "/urgencias",
+	},
+	{
+		title: "PAP móvil DISAM",
+		desc: "Calendario de citas PAP móvil DISAM.",
+		image: papImg,
+		link: "#",
+		modalImage: papModalImg,
+	},
+];
+
+import { load } from "cheerio";
+import { Image } from "astro:assets";
+
+interface NewsItem {
+	title: string;
+	date: string;
+	summary: string;
+	category: string;
+	image: string;
+	url: string;
+}
+
+async function fetchNews(): Promise<NewsItem[]> {
+	try {
+		const response = await fetch(
+			"https://muniarica.cl/noticias/categoria/salud",
+		);
+		const html = await response.text();
+		const $ = load(html);
+		const newsItems: NewsItem[] = [];
+
+		$("a.card-contenido").each((i, el) => {
+			if (i >= 3) return false; // Limit to 3 items
+
+			const title = $(el).find("h3").text().trim();
+			const date = $(el).find("p").first().text().trim();
+			let link = $(el).attr("href") || "#";
+			let image = $(el).find(".news-image img").attr("src") || "";
+
+			// Resolve relative URLs
+			if (link.startsWith("/")) {
+				link = `https://muniarica.cl${link}`;
+			}
+
+			// Since summary is not on the listing, we use a default text or subtitle if found.
+			// For now, we will leave it empty or generic, or try to find a subtitle if it exists.
+			const summary =
+				"Haz clic para leer la noticia completa en el portal municipal.";
+
+			newsItems.push({
+				title,
+				date,
+				summary,
+				category: "Salud Municipal",
+				image: image || "",
+				url: link || "#",
+			});
+		});
+
+		return newsItems;
+	} catch (error) {
+		console.error("Error fetching news:", error);
+		// Fallback data
+		return [
+			{
+				title: "Error al cargar noticias",
+				date: "Hoy",
+				summary:
+					"No pudimos obtener las noticias más recientes. Por favor visita muniarica.cl",
+				category: "Sistema",
+				image: "",
+				url: "https://muniarica.cl/noticias/categoria/salud",
+			},
+		];
+	}
+}
+
+const news = await fetchNews();
+---
+
+<Layout title="Atención Primaria de Salud Municipal - Arica">
+	<Header />
+
+	<main>
+		<HeroSlider />
+
+		<!-- Featured Services -->
+		<section class="section services-section">
+			<div class="container">
+				<div class="section-header">
+					<h2 class="section-title">Servicios Destacados</h2>
+					<p class="section-subtitle">
+						Accesos rápidos a la información que necesitas
+					</p>
+				</div>
+
+				<div class="grid cards-grid">
+					{
+						services.map((service) =>
+							service.modalImage ? (
+								<div
+									class="service-card"
+									style="cursor: pointer;"
+									data-modal-trigger
+									data-modal-image={service.modalImage.src}
+									data-modal-title={service.title}
+								>
+									<div class="service-image-container">
+										<Image
+											src={service.image}
+											alt={service.title}
+											class="service-image"
+										/>
+									</div>
+									<div class="service-card-content">
+										<h3>{service.title}</h3>
+										<p>{service.desc}</p>
+									</div>
+									<div class="card-footer-branding">
+										<Image
+											src={aricaLogo}
+											alt="Arica"
+											class="footer-logo"
+										/>
+									</div>
+								</div>
+							) : (
+								<a href={service.link} class="service-card">
+									<div class="service-image-container">
+										<Image
+											src={service.image}
+											alt={service.title}
+											class="service-image"
+										/>
+									</div>
+									<div class="service-card-content">
+										<h3>{service.title}</h3>
+										<p>{service.desc}</p>
+									</div>
+									<div class="card-footer-branding">
+										<Image
+											src={aricaLogo}
+											alt="Arica"
+											class="footer-logo"
+										/>
+									</div>
+								</a>
+							),
+						)
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- Info Banners (Mision/Vision) -->
+		<section class="info-banner-split">
+			<div class="banner-image-container">
+				<Image
+					src={misionVisionImg}
+					alt="Equipo de salud en terreno"
+					class="banner-image"
+				/>
+			</div>
+			<div class="banner-text-container">
+				<div class="banner-content-inner">
+					<div class="mv-block">
+						<h2>Misión</h2>
+						<div class="p_justificado">
+							La Dirección de Salud Municipal tiene como
+							misión,otorgar atención de salud integral centrada
+							en las personas, en base al modelo de salud familiar
+							y comunitario con enfasis en las acciones de
+							promoción, prevención y participación social, desde
+							una perspectiva de equidad, permanencia territorial
+							y trabajo en equipo.
+						</div>
+					</div>
+					<div class="mv-divider"></div>
+					<div class="mv-block">
+						<h2>Visión</h2>
+						<div class="p_justificado">
+							Ser una institución de salud referente, confiable y
+							reconocida por la comunidad, por su cercania,
+							compromiso y calidad en el cuidado de las personas y
+							sus familias.
+						</div>
+					</div>
+				</div>
+				<button id="btn-mision-vison" class="btn btn-primary btn-sm"
+					>Ver más</button
+				>
+			</div>
+		</section>
+
+		<!-- Modals -->
+		<ImageModal />
+
+		<script define:vars={{ imgUrl: misionImg.src }}>
+			const btn = document.getElementById("btn-mision-vison");
+			if (btn) {
+				btn.addEventListener("click", () => {
+					if (window.openImageModal) {
+						window.openImageModal(
+							imgUrl,
+							"Misión, Visión y Valores",
+						);
+					}
+				});
+			}
+
+			// Service cards triggers
+			const triggers = document.querySelectorAll("[data-modal-trigger]");
+			triggers.forEach((trigger) => {
+				trigger.addEventListener("click", () => {
+					const img = trigger.dataset.modalImage;
+					const title = trigger.dataset.modalTitle;
+					if (img && window.openImageModal) {
+						window.openImageModal(img, title);
+					}
+				});
+			});
+		</script>
+
+		<!-- News Section -->
+		<section class="section news-section">
+			<div class="container">
+				<div class="section-header">
+					<h2 class="section-title">Noticias Recientes</h2>
+					<a
+						href="https://muniarica.cl/noticias/categoria/salud"
+						class="view-all"
+						target="_blank"
+						rel="noopener noreferrer">Ver todas las noticias</a
+					>
+				</div>
+
+				<div class="grid news-grid">
+					{
+						news.map((item) => (
+							<article class="news-card">
+								<div class="news-content">
+									<span class="news-category">
+										{item.category}
+									</span>
+									<h3>{item.title}</h3>
+									<p class="date">{item.date}</p>
+									<p class="summary">{item.summary}</p>
+									<a
+										href={item.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="read-more"
+									>
+										Leer más
+										<div class="card-footer-branding">
+											<Image
+												src={aricaLogo}
+												alt="Arica"
+												class="footer-logo"
+											/>
+										</div>
+									</a>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>

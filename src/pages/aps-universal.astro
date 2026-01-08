@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ApsUniversalComponent from "../components/ApsUniversal.astro";
+---
+
+<Layout title="APS Universal - Atención Primaria de Salud Municipal">
+    <Header />
+
+    <main>
+        <!-- Page Header -->
+        <div class="page-header text-center">
+            <div class="container">
+                <h1 class="page-title">APS Universal</h1>
+                <div class="breadcrumb">
+                    <a href="/">Inicio</a> / <span>APS Universal</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <ApsUniversalComponent />
+    </main>
+
+    <Footer />
+</Layout>

@@ -1,0 +1,82 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import OficinaCard from "../components/OficinaCard.astro";
+import { oficinas } from "../data/oficinas";
+---
+
+<Layout title="Departamentos - DISAM Arica">
+    <Header />
+    <main>
+        <section class="oficinas-header">
+            <div class="container">
+                <h1>Departamentos</h1>
+                <p>
+                    Conoce las distintas dependencias que componen la Dirección
+                    de Salud Municipal de Arica
+                </p>
+            </div>
+        </section>
+
+        <section class="oficinas-grid container">
+            {oficinas.map((oficina) => <OficinaCard {...oficina} />)}
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    main {
+        min-height: 100vh;
+        background-color: #f8fafc;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .oficinas-header {
+        background:
+            linear-gradient(rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.9)),
+            url("/cesfam.png"); /* Fallback image or matching style */
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 4rem 1rem;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .oficinas-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+
+    .oficinas-header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .oficinas-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding-bottom: 4rem;
+    }
+
+    @media (max-width: 768px) {
+        .oficinas-header {
+            padding: 3rem 1rem;
+        }
+
+        .oficinas-header h1 {
+            font-size: 2rem;
+        }
+    }
+</style>

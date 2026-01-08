@@ -1,0 +1,170 @@
+---
+import { farmaciaData } from "../data/farmacia";
+---
+
+<section class="section-farmacia">
+    <div class="container">
+        <div class="farmacia-grid">
+            <div class="info-column">
+                <div class="info-card">
+                    <h2>Información General</h2>
+                    <div class="info-item">
+                        <span class="icon">📍</span>
+                        <div>
+                            <strong>Dirección</strong>
+                            <p>{farmaciaData.address}</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">🕒</span>
+                        <div>
+                            <strong>Horario de Atención</strong>
+                            {farmaciaData.hours.map((hour) => <p>{hour}</p>)}
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">📞</span>
+                        <div>
+                            <strong>Teléfono</strong>
+                            <p>{farmaciaData.phone}</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">👨‍⚕️</span>
+                        <div>
+                            <strong>{farmaciaData.directorTitle}</strong>
+                            <p>{farmaciaData.director}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirements-card">
+                    <h2>Requisitos de Inscripción</h2>
+                    <ul>
+                        {farmaciaData.requirements.map((req) => <li>{req}</li>)}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="description-column">
+                <div class="description-content">
+                    <h2>Sobre la Farmacia Municipal</h2>
+                    <p>{farmaciaData.description}</p>
+
+                    <div class="map-container">
+                        <iframe
+                            src={farmaciaData.mapUrl}
+                            width="100%"
+                            height="400"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .section-farmacia {
+        padding: 4rem 0;
+        background-color: var(--color-bg);
+    }
+
+    .farmacia-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    @media (min-width: 992px) {
+        .farmacia-grid {
+            grid-template-columns: 1fr 2fr;
+        }
+    }
+
+    .info-card,
+    .requirements-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 2rem;
+    }
+
+    h2 {
+        color: var(--color-primary);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--color-secondary);
+        padding-bottom: 0.5rem;
+        display: inline-block;
+    }
+
+    .info-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .icon {
+        font-size: 1.5rem;
+    }
+
+    .info-item strong {
+        display: block;
+        color: var(--color-text);
+        margin-bottom: 0.25rem;
+    }
+
+    .info-item p {
+        color: #666;
+        margin: 0;
+    }
+
+    .requirements-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .requirements-card li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+        color: #4b5563;
+    }
+
+    .requirements-card li::before {
+        content: "•";
+        color: var(--color-secondary);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+    }
+
+    .description-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-md);
+    }
+
+    .description-content p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #4b5563;
+        margin-bottom: 2rem;
+    }
+
+    .map-container {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+    }
+</style>

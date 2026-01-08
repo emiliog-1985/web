@@ -1,0 +1,188 @@
+---
+import footerBg from "../assets/footer-bg.png";
+import global from "../styles/global.css";
+import { Image } from "astro:assets";
+import facebook from "../assets/facebook.svg";
+import x from "../assets/X.svg";
+import youtube from "../assets/youtube.svg";
+import instagram from "../assets/instagram.svg";
+---
+
+<footer class="footer">
+    <div class="container footer-grid">
+        <!-- Col 1: Identidad y Contacto -->
+        <div class="footer-col brand-col">
+            <h3 class="footer-logo">DISAM</h3>
+            <p class="address">
+                Avenida Rafael Sotomayor #415, Arica<br />
+                Teléfono: (56-58) 2206004
+            </p>
+            <div class="social-links-container">
+                <h4>Síguenos</h4>
+                <div class="social-links">
+                    <a
+                        href="https://www.facebook.com/disam.arica"
+                        target="_blank"
+                        aria-label="Facebook"
+                    >
+                        <Image
+                            src={facebook}
+                            alt="Facebook"
+                            width={24}
+                            height={24}
+                        />
+                    </a>
+                    <a
+                        href="https://twitter.com/muniarica"
+                        target="_blank"
+                        aria-label="Twitter / X"
+                    >
+                        <Image
+                            src={x}
+                            alt="Twitter / X"
+                            width={24}
+                            height={24}
+                        />
+                    </a>
+                    <a
+                        href="https://www.youtube.com/@municipalidaddearica6653"
+                        target="_blank"
+                        aria-label="YouTube"
+                    >
+                        <Image
+                            src={youtube}
+                            alt="YouTube"
+                            width={24}
+                            height={24}
+                        />
+                    </a>
+                    <a
+                        href="https://www.instagram.com/muniarica/"
+                        target="_blank"
+                        aria-label="Instagram"
+                    >
+                        <Image
+                            src={instagram}
+                            alt="Instagram"
+                            width={24}
+                            height={24}
+                        />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Col 2: Sitios de Interés -->
+        <div class="footer-col">
+            <h4>Sitios de Interés</h4>
+            <ul>
+                <li>
+                    <a href="https://muniarica.cl/home" target="_blank"
+                        >Municipalidad de Arica</a
+                    >
+                </li>
+                <li>
+                    <a href="https://www.saludarica.cl/" target="_blank"
+                        >Servicio de Salud de Arica</a
+                    >
+                </li>
+                <li>
+                    <a href="https://seremi15.redsalud.gob.cl/" target="_blank"
+                        >SEREMI Región de Arica y Parinacota</a
+                    >
+                </li>
+                <li>
+                    <a href="https://www.minsal.cl/" target="_blank"
+                        >Ministerio de Salud</a
+                    >
+                </li>
+            </ul>
+        </div>
+
+        <!-- Col 3: DISAM -->
+        <div class="footer-col">
+            <h4>DISAM</h4>
+            <ul>
+                <li>
+                    <a
+                        href="https://apsmuniarica.cl/web/honorarios/"
+                        target="_blank">Honorarios</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://www.saludmuniarica.cl/postulacion/"
+                        target="_blank">Postulación DISAM</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://intranetarica.smc.cl/login.aspx?ReturnUrl=%2f"
+                        target="_blank">Intranet Municipal</a
+                    >
+                </li>
+                <li>
+                    <a href="http://intranet.saludmuniarica.cl/" target="_blank"
+                        >Intranet DISAM</a
+                    >
+                </li>
+                <li>
+                    <a href="https://mail.google.com/" target="_blank"
+                        >Webmail</a
+                    >
+                </li>
+            </ul>
+        </div>
+
+        <!-- Col 4: Transparencia -->
+        <div class="footer-col">
+            <h4>Ley de Transparencia</h4>
+            <ul>
+                <li>
+                    <a
+                        href="https://datos.gob.cl/organization/municipalidad_de_arica"
+                        target="_blank">Gobierno Abierto</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://www.portaltransparencia.cl/PortalPdT/web/guest/directorio-de-organismos-regulados?p_p_id=pdtorganismos_WAR_pdtorganismosportlet&orgcode=9b754cd45ececd0138f367362452894d"
+                        target="_blank">Portal de Transparencia</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://transparencia.municipalidaddearica.cl/"
+                        target="_blank">Transparencia Activa</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://transparencia.municipalidaddearica.cl/page.php?p=380"
+                        target="_blank">Acta del Consejo Municipal</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://www.declaracionjurada.cl/pubsistema/patrimonio.web.publico/pu/index.html?sid=691"
+                        target="_blank">Intereses y Patrimonio</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://transparencia.municipalidaddearica.cl/page.php?p=11"
+                        target="_blank">Cuenta Pública</a
+                    >
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <img src={footerBg.src} alt="" />
+        <div class="footer-bottom-content">
+            © {new Date().getFullYear()} Municipalidad de Arica Direccion Salud. Todos
+            los derechos reservados.
+        </div>
+    </div>
+</footer>

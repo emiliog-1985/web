@@ -1,0 +1,203 @@
+---
+import "../styles/global.css";
+import body_wh from "../assets/body_wh.svg";
+---
+
+<div id="accessibility-widget" class="accessibility-widget">
+    <button
+        id="accessibility-toggle"
+        class="accessibility-toggle"
+        aria-label="Opciones de accesibilidad"
+        title="Accesibilidad"
+    >
+        <img
+            src={body_wh.src}
+            alt=""
+            aria-hidden="true"
+            class="icon-accessibility"
+        />
+        <span class="sr-only"></span>
+    </button>
+
+    <div id="accessibility-menu" class="accessibility-menu hidden">
+        <div class="menu-header">
+            <h3>Accesibilidad</h3>
+            <button
+                id="close-accessibility"
+                class="close-btn"
+                aria-label="Cerrar menú"
+            >
+                ✕
+            </button>
+        </div>
+        <div class="menu-options">
+            <div class="option-group">
+                <span>Tamaño de fuente</span>
+                <div class="btn-group">
+                    <button
+                        id="font-decrease"
+                        aria-label="Disminuir tamaño de letra">A-</button
+                    >
+                    <button
+                        id="font-increase"
+                        aria-label="Aumentar tamaño de letra">A+</button
+                    >
+                </div>
+            </div>
+            <div class="option-group">
+                <span>Contraste</span>
+                <button id="toggle-contrast" class="action-btn"
+                    >Alto Contraste</button
+                >
+            </div>
+            <div class="option-group">
+                <span>Color</span>
+                <button id="toggle-grayscale" class="action-btn"
+                    >Escala de Grises</button
+                >
+            </div>
+            <div class="option-group">
+                <button id="reset-accessibility" class="reset-btn"
+                    >Restablecer todo</button
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    class AccessibilityManager {
+        private fontSize = 100;
+        private maxFontSize = 150;
+        private minFontSize = 90;
+        private isHighContrast = false;
+        private isGrayscale = false;
+
+        constructor() {
+            this.init();
+        }
+
+        init() {
+            // Load saved settings
+            const savedSettings = localStorage.getItem(
+                "accessibility-settings",
+            );
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                this.fontSize = settings.fontSize || 100;
+                this.isHighContrast = settings.isHighContrast || false;
+                this.isGrayscale = settings.isGrayscale || false;
+                this.applySettings();
+            }
+
+            this.setupEventListeners();
+        }
+
+        setupEventListeners() {
+            const toggleBtn = document.getElementById("accessibility-toggle");
+            const closeBtn = document.getElementById("close-accessibility");
+            const menu = document.getElementById("accessibility-menu");
+
+            if (toggleBtn && menu && closeBtn) {
+                toggleBtn.addEventListener("click", () => {
+                    menu.classList.toggle("hidden");
+                    const isExpanded = !menu.classList.contains("hidden");
+                    toggleBtn.setAttribute("aria-expanded", String(isExpanded));
+                });
+
+                closeBtn.addEventListener("click", () => {
+                    menu.classList.add("hidden");
+                    toggleBtn.setAttribute("aria-expanded", "false");
+                });
+            }
+
+            document
+                .getElementById("font-increase")
+                ?.addEventListener("click", () => this.adjustFontSize(10));
+            document
+                .getElementById("font-decrease")
+                ?.addEventListener("click", () => this.adjustFontSize(-10));
+            document
+                .getElementById("toggle-contrast")
+                ?.addEventListener("click", () => this.toggleContrast());
+            document
+                .getElementById("toggle-grayscale")
+                ?.addEventListener("click", () => this.toggleGrayscale());
+            document
+                .getElementById("reset-accessibility")
+                ?.addEventListener("click", () => this.reset());
+        }
+
+        adjustFontSize(delta: number) {
+            this.fontSize += delta;
+            if (this.fontSize > this.maxFontSize)
+                this.fontSize = this.maxFontSize;
+            if (this.fontSize < this.minFontSize)
+                this.fontSize = this.minFontSize;
+            this.applySettings();
+            this.saveSettings();
+        }
+
+        toggleContrast() {
+            this.isHighContrast = !this.isHighContrast;
+            this.applySettings();
+            this.saveSettings();
+        }
+
+        toggleGrayscale() {
+            this.isGrayscale = !this.isGrayscale;
+            this.applySettings();
+            this.saveSettings();
+        }
+
+        reset() {
+            this.fontSize = 100;
+            this.isHighContrast = false;
+            this.isGrayscale = false;
+            this.applySettings();
+            this.saveSettings();
+        }
+
+        applySettings() {
+            const html = document.documentElement;
+            const body = document.body;
+
+            // Font Size
+            html.style.fontSize = `${this.fontSize}%`;
+
+            // Contrast
+            if (this.isHighContrast) {
+                body.classList.add("high-contrast");
+            } else {
+                body.classList.remove("high-contrast");
+            }
+
+            // Grayscale
+            if (this.isGrayscale) {
+                body.classList.add("grayscale-mode");
+            } else {
+                body.classList.remove("grayscale-mode");
+            }
+        }
+
+        saveSettings() {
+            const settings = {
+                fontSize: this.fontSize,
+                isHighContrast: this.isHighContrast,
+                isGrayscale: this.isGrayscale,
+            };
+            localStorage.setItem(
+                "accessibility-settings",
+                JSON.stringify(settings),
+            );
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener("astro:page-load", () => {
+        new AccessibilityManager();
+    });
+
+    // Also init immediately if not using View Transitions or for first load
+    new AccessibilityManager();
+</script>

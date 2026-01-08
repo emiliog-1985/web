@@ -26,7 +26,7 @@ const services = [
 	},
 	{
 		title: "Farmacia Municipal",
-		desc: "Consulta disponibilidad y precios de medicamentos.",
+		desc: "Conoce la farmacia municipal de Arica.",
 		image: farmaciaImg,
 		link: "/farmacia",
 	},
@@ -37,7 +37,7 @@ const services = [
 		link: "/urgencias",
 	},
 	{
-		title: "PAP móvil DISAM",
+		title: "Calendario PAP móvil",
 		desc: "Calendario de citas PAP móvil DISAM.",
 		image: papImg,
 		link: "#",
@@ -124,13 +124,6 @@ const news = await fetchNews();
 		<!-- Featured Services -->
 		<section class="section services-section">
 			<div class="container">
-				<div class="section-header">
-					<h2 class="section-title">Servicios Destacados</h2>
-					<p class="section-subtitle">
-						Accesos rápidos a la información que necesitas
-					</p>
-				</div>
-
 				<div class="grid cards-grid">
 					{
 						services.map((service) =>
